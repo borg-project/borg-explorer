@@ -2,8 +2,8 @@ borg-explorer
 =============
 
 This tool generates an experimental visualization of solver evaluation data,
-such as the results of [SAT solver
-competitions](http://www.satcompetition.org/), through an interactive
+such as data obtained by [SAT solver
+competitions](http://www.satcompetition.org/), centered around an interactive
 two-dimensional projection of the space of problem instances. It is a component
 of the borg algorithm portfolio project:
 
@@ -33,4 +33,10 @@ Dependencies
 
 - borg
 - cargo
+
+License
+-------
+
+This software package is provided under the non-copyleft open-source "MIT"
+license. The complete legal notice can be found in the included LICENSE file.
 
