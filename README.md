@@ -56,13 +56,13 @@ https://github.com/mbostock/d3/archives/master
 Unpack the tarball in the new directory, and symlink the d3 directory as `d3`.
 
 Next, prepare inputs for visualization. An example set of inputs is available
-from the "download" link from:
+from the "download" link at:
 
 http://www.cs.utexas.edu/~bsilvert/borgview/
 
 Assuming that an input configuration has been prepared at
-`inputs/sat09/setup.json`, compute the dissimilarity scores and projection to the
-by running:
+`inputs/sat09/setup.json`, compute the dissimilarity scores and projection
+coordinates by running:
 
     $ python -m borg_explorer.tools.view_fit sat09_fit.pickle inputs/sat09/setup.json
 
