@@ -3,7 +3,6 @@ def options(context):
 
 def configure(context):
     context.load("python")
-    #context.check_python_headers()
     context.check_python_version((2, 6))
 
 def build(context):
