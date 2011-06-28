@@ -32,6 +32,7 @@ Installation
 
 First, install `borg` and `cargo` in a virtualenv according to the [borg
 installation instructions](http://borg.readthedocs.org/en/latest/installation.html).
+The portfolio calibration step is unnecessary.
 
 With the same virtualenv active, install the borg-explorer requirement(s):
 
