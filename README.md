@@ -37,6 +37,8 @@ With the same virtualenv active, install the borg-explorer requirement(s):
 
     $ pip install rpy2
 
+(A recent version of R must be available.)
+
 Then, from the borg-explorer source tree,
 
     $ ./waf configure
@@ -46,7 +48,27 @@ Then, from the borg-explorer source tree,
 Usage
 -----
 
-XXX.
+Create a directory to which the site files will be written (these instructions
+will assume `~/www/borg-explorer`). Then download d3.js from:
+
+https://github.com/mbostock/d3/archives/master
+
+Unpack the tarball in the new directory, and symlink the d3 directory as `d3`.
+
+Next, prepare inputs for visualization. An example set of inputs is available
+from the "download" link from:
+
+http://www.cs.utexas.edu/~bsilvert/borgview/
+
+Assuming that an input configuration has been prepared at
+`inputs/sat09/setup.json`, compute the dissimilarity scores and projection to the
+by running:
+
+    $ python -m borg_explorer.tools.view_fit sat09_fit.pickle inputs/sat09/setup.json
+
+Then generate the visualization from the computed projection:
+
+    $ python -m borg_explorer.tools.view_write ~/www/borg-explorer sat09_fit.pickle
 
 License
 -------
