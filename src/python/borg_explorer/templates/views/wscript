@@ -1,6 +1,6 @@
 def build(context):
     context.install_files(
-        "${PREFIX}/lib/borg/visual/templates/views",
+        "${PYTHONDIR}/borg_explorer/templates/views",
         [
             "cluster.js",
             "table.js",
@@ -8,5 +8,5 @@ def build(context):
             ]
         )
 
-    context.recurse("cluster");
+    context.recurse("cluster")
 

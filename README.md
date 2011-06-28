@@ -23,16 +23,17 @@ generation process is:
 1. Solver run data are read (CSV).
 2. A mixture model is fit to the data (using EM).
 3. Using KL divergence scores from the mixture model, multidimensional scaling
-   (MDS) is used to project the problem instances. (The R implementation of MDS
-   is used.)
+   is used to project the problem instances (using R's MDS implementation.)
 4. The projection, similarity scores, and other data are written to JSON.
 5. The HTML, JavaScript, and other page files are generated.
 
-Dependencies
+Installation
 ------------
 
-- borg
-- cargo
+First, install `borg` and `cargo` in a virtualenv according to the [borg
+installation instructions](http://borg.readthedocs.org/en/latest/installation.html).
+
+Then, XXX.
 
 License
 -------

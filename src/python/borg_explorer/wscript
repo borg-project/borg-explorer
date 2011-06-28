@@ -3,8 +3,9 @@ def build(context):
         source = [
             "__init__.py",
             ],
-        install_path = "${PREFIX}/lib/borg/visual",
+        install_path = "${PYTHONDIR}/borg_explorer",
         )
 
     context.recurse("templates")
+    context.recurse("tools")
 

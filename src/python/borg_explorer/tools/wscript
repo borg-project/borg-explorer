@@ -1,0 +1,10 @@
+def build(context):
+    context(
+        source = [
+            "__init__.py",
+            "view_fit.py",
+            "view_write.py",
+            ],
+        install_path = "${PYTHONDIR}/borg_explorer/tools",
+        )
+
