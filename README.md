@@ -33,7 +33,16 @@ Installation
 First, install `borg` and `cargo` in a virtualenv according to the [borg
 installation instructions](http://borg.readthedocs.org/en/latest/installation.html).
 
-Then, XXX.
+Then, with the same virtualenv active, from the borg-explorer source tree,
+
+    $ ./waf configure
+    $ ./waf build
+    $ ./waf install
+
+Usage
+-----
+
+XXX.
 
 License
 -------
