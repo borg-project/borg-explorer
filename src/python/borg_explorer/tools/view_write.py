@@ -3,7 +3,7 @@
 import plac
 
 if __name__ == "__main__":
-    from borg.tools.view_write import main
+    from borg_explorer.tools.view_write import main
 
     plac.call(main)
 
@@ -11,10 +11,12 @@ import os.path
 import csv
 import json
 import cPickle as pickle
+import distutils.dir_util
 import numpy
 import jinja2
 import cargo
 import borg
+import borg_explorer
 
 logger = cargo.get_logger(__name__, default_level = "INFO")
 
@@ -25,6 +27,8 @@ def write_category(root_path, name, category):
     # write data files
     sanitized = sanitize(name)
     data_path = os.path.join(root_path, "data", sanitized)
+
+    logger.info("writing %s files to %s", name, data_path)
 
     if not os.path.exists(data_path):
         os.makedirs(data_path)
@@ -44,9 +48,9 @@ def write_category(root_path, name, category):
     with open(os.path.join(data_path, "projection.json"), "w") as output_file:
         json.dump(category.projection_N2.tolist(), output_file)
 
-    logger.info("wrote %s files to %s", name, data_path)
-
     # reify URLs to the filesystem
+    logger.info("reifying interface URLs")
+
     def reify_ui_path(*components):
         pseudo_path = os.path.join(root_path, "ui", sanitized, *components)
 
@@ -62,8 +66,6 @@ def write_category(root_path, name, category):
     reify_ui_path("cluster")
     reify_ui_path("projection")
 
-    logger.info("reified interface URLs")
-
 @plac.annotations(
     out_path = ("path to write visualization"),
     fit_path = ("path to visualization data"),
@@ -73,6 +75,11 @@ def main(out_path, fit_path):
 
     cargo.enable_default_logging()
 
+    # copy over static content
+    static_path = os.path.join(borg_explorer.__path__[0], "static")
+
+    distutils.dir_util.copy_tree(static_path, out_path)
+
     # load the model(s)
     logger.info("loading visualization data from %s", fit_path)
 
@@ -80,11 +87,16 @@ def main(out_path, fit_path):
         fit = pickle.load(fit_file)
 
     # write data directories
+    logger.info("writing inputs archive")
+
+    with open(os.path.join(out_path, "inputs.tar.gz"), "w") as archive_file:
+        archive_file.write(fit.data_archive)
+
     for (name, category) in fit.categories.items():
         write_category(out_path, name, category)
 
     # generate the visualization
-    loader = jinja2.PackageLoader("borg.visual", "templates")
+    loader = jinja2.PackageLoader("borg_explorer", "templates")
     environment = jinja2.Environment(loader = loader)
 
     def write_rendered(template_name, output_name, **kwargs):

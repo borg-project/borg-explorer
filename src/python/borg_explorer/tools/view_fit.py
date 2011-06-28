@@ -3,13 +3,15 @@
 import plac
 
 if __name__ == "__main__":
-    from borg.tools.view_fit import main
+    from borg_explorer.tools.view_fit import main
 
     plac.call(main)
 
 import os.path
 import json
 import cPickle as pickle
+import tarfile
+import cStringIO as StringIO
 import numpy
 import rpy2.robjects
 import rpy2.robjects.packages
@@ -20,6 +22,8 @@ import borg
 logger = cargo.get_logger(__name__, default_level = "INFO")
 
 class CategoryData(object):
+    """Data for a category."""
+
     def fit(self, runs_path, budget_interval, budget_count):
         """Fit data for a category."""
 
@@ -106,7 +110,6 @@ class CategoryData(object):
                 })
 
         # generate cluster projection
-        #self.similarity_NN = numpy.dot(self.model._tclass_res_LN.T, self.model._tclass_res_LN)
         self.similarity_NN = numpy.empty((N, N))
 
         for m in xrange(N):
@@ -115,15 +118,29 @@ class CategoryData(object):
                 rn_SK = numpy.sum(self.model._tclass_res_LN[:, n][:, None, None] * self.model._tclass_LSK, axis = 0)
 
                 self.similarity_NN[m, n] = numpy.sum(rm_SK * numpy.log(rm_SK / rn_SK))
-                #self.similarity_NN[m, n] = S - numpy.sum(numpy.abs(successes[m] - successes[n]))
 
         self.projection_N2 = numpy.array(rpy2.robjects.r["cmdscale"](1.0 - self.similarity_NN))
 
         return self
 
 class ViewData(object):
+    """All data required for visualization."""
+
     def __init__(self, relative_to, setup):
+        """Initialize."""
+
         self.setup = setup
+
+        # archive the data directory
+        logger.info("archiving data as tarball")
+
+        data_file = StringIO.StringIO()
+        data_tar = tarfile.open(None, "w:gz", data_file)
+
+        data_tar.add(relative_to)
+        data_tar.close()
+
+        self.data_archive = data_file.getvalue()
 
         # fit a model to each category
         categories = {}

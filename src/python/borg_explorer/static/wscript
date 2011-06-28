@@ -1,0 +1,15 @@
+def build(context):
+    context.install_files(
+        "${PYTHONDIR}/borg_explorer/static",
+        [
+            ".htaccess",
+            "analytics.js",
+            "borgview.css",
+            "ui.selectmenu.js",
+            "ui.selectmenu.css",
+            "sprintf-0.7-beta1.js",
+            ]
+        )
+
+    context.recurse("images")
+

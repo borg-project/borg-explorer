@@ -6,6 +6,7 @@ def build(context):
         install_path = "${PYTHONDIR}/borg_explorer",
         )
 
+    context.recurse("static")
     context.recurse("templates")
     context.recurse("tools")
 

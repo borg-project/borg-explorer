@@ -1,0 +1,11 @@
+def build(context):
+    context.install_files(
+        "${PYTHONDIR}/borg_explorer/static/images",
+        [
+            "borg-cube-64.png",
+            "borg-cube.png",
+            "cube_32x32.ico",
+            "help-mark-72.png",
+            ]
+        )
+
