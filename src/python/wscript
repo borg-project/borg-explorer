@@ -2,8 +2,12 @@ def options(context):
     context.load("python")
 
 def configure(context):
+    # check for Python
     context.load("python")
     context.check_python_version((2, 6))
+
+    # check for various required modules
+    context.check_python_module("rpy2")
 
 def build(context):
     context.recurse("borg_explorer")

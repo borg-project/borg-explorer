@@ -33,7 +33,11 @@ Installation
 First, install `borg` and `cargo` in a virtualenv according to the [borg
 installation instructions](http://borg.readthedocs.org/en/latest/installation.html).
 
-Then, with the same virtualenv active, from the borg-explorer source tree,
+With the same virtualenv active, install the borg-explorer requirement(s):
+
+    $ pip install rpy2
+
+Then, from the borg-explorer source tree,
 
     $ ./waf configure
     $ ./waf build
