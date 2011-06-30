@@ -6,25 +6,20 @@ bv.state = {};
 
 bv.state.initial = function(ui) {
     var parseLocation = function () {
-        // compute our root URL
-        var pieces = window.location.href.split("/");
-        var components = {trailing: []};
+        // compute our relative URL
+        var root = $("base").attr("href");
+        var href = window.location.href;
 
-        for(var i = pieces.length - 1; i >= 0; i -= 1) {
-            if(pieces[i] === "borgview") {
-                components.root = pieces.slice(0, i + 1).join("/");
-
-                break;
-            }
-            else if(pieces[i] !== "") {
-                components.trailing.unshift(pieces[i]);
-            }
+        if(href.indexOf(root) != 0) {
+            throw {name: "AssertionError", message: "could not match URL with base"};
         }
 
-        if(components.root === undefined) {
-            throw {name: "AssertionError", message: "could not establish root URL"};
-        }
-        else if(components.trailing[0] === "ui") {
+        var components = {
+            root: root,
+            trailing: href.substr(root.length).split("/")
+        };
+
+        if(components.trailing[0] === "ui") {
             components.category = components.trailing[1];
             components.view = components.trailing[2];
         }
