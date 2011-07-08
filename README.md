@@ -9,9 +9,9 @@ of the borg algorithm portfolio project:
 
 http://nn.cs.utexas.edu/pages/research/borg/
 
-An example of its output can be found at:
+Examples of its output can be found at:
 
-http://www.cs.utexas.edu/~bsilvert/borgview/
+http://nn.cs.utexas.edu/pages/research/borg/visualization.html
 
 Architecture
 ------------
@@ -59,7 +59,7 @@ Unpack the tarball in the new directory, and symlink the d3 directory as `d3`.
 Next, prepare inputs for visualization. An example set of inputs is available
 from the "download" link at:
 
-http://www.cs.utexas.edu/~bsilvert/borgview/
+http://nn.cs.utexas.edu/pages/research/borg-explorer/sat09/
 
 Assuming that an input configuration has been prepared at
 `inputs/sat09/setup.json`, compute the dissimilarity scores and projection
@@ -67,7 +67,7 @@ coordinates by running:
 
     $ python -m borg_explorer.tools.view_fit sat09_fit.pickle inputs/sat09/setup.json
 
-Then generate the visualization from the computed projection:
+Then generate the visualization from the computed projection into an arbitrary directory, e.g.:
 
     $ python -m borg_explorer.tools.view_write ~/www/borg-explorer sat09_fit.pickle
 
@@ -76,4 +76,3 @@ License
 
 This software package is provided under the non-copyleft open-source "MIT"
 license. The complete legal notice can be found in the included LICENSE file.
-
